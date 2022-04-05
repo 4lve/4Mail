@@ -3,6 +3,10 @@ const WOKCommands = require('wokcommands')
 const path = require('path')
 require('dotenv').config()
 
+const fs = require('fs')
+
+global.endMail = JSON.parse(fs.readFileSync(path.join(__dirname, './mail.json'), 'utf8')).default
+
 const { Intents } = DiscordJS
 
 const client = new DiscordJS.Client({
