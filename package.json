@@ -1,0 +1,23 @@
+{
+  "name": "4mail",
+  "version": "1.0.0",
+  "description": "Discord mail handeler",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4lve/4Mail.git"
+  },
+  "author": "4lve",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/4lve/4Mail/issues"
+  },
+  "homepage": "https://github.com/4lve/4Mail#readme",
+  "dependencies": {
+    "discord.js": "^13.6.0",
+    "wokcommands": "^1.5.3"
+  }
+}
