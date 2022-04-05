@@ -20,6 +20,7 @@
     "@cemalgnlts/mailjs": "^1.0.1",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
+    "mailparser": "^3.4.0",
     "uuid": "^8.3.2",
     "wokcommands": "^1.5.3"
   }

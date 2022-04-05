@@ -47,7 +47,7 @@ module.exports = {
             return
         }
 
-        const loginSession = await mailjs.login(mailUsername, password)
+        const loginSession = await mailjs.login(mailUsername.toLowerCase(), password)
         if(!loginSession.status) {
             await interaction.editReply({ content: `Error occured when creating account: \`\`\`cs\n# Could Not Login\n\`\`\`` })
             return

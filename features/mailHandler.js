@@ -15,9 +15,49 @@ module.exports = (client, instance) => {
 
       if(customId == 'delete') {
         mailjs.token = token
-        const succ = await mailjs.deleteMe()
-        console.log(succ)
+        mailjs.deleteMe()
         await interaction.channel.delete()
+      }else if(customId == 'refresh') {
+        mailjs.token = token
+        const mails = await mailjs.getMessages()
+        
+        if(!mails.data[0]) return interaction.reply({
+          content: 'No mails found.',
+          ephemeral: true
+        })
+
+        const selectedMail = mails.data[0]
+
+        const mailEmbed = new DiscordJS.MessageEmbed({
+          type: "rich",
+          title: `${selectedMail.subject}`,
+          description: `New Mail Recived`,
+          color: 0x00FFFF,
+          fields: [
+              {
+              name: `From:`,
+              value: `${selectedMail.from.address}`
+              },
+              {
+              name: `Subject:`,
+              value: `${selectedMail.subject}`
+              },
+              {
+              name: `Intro:`,
+              value: `${selectedMail.intro}`
+              },
+              {
+              name: `Id:`,
+              value: `${selectedMail.id}`
+                }
+            ]
+        })
+
+        await interaction.reply({
+          embeds: [mailEmbed],
+        })
+        mailjs.deleteMessage(selectedMail.id)
+        .then(console.log)
       }
     })
 }
