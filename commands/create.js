@@ -52,6 +52,8 @@ module.exports = {
             await interaction.editReply({ content: `Error occured when creating account: \`\`\`cs\n# Could Not Login\n\`\`\`` })
             return
         }
+        const token = mailjs.token
+        const id = mailjs.id
 
         //create new channel
         const newChannel = await interaction.guild.channels.create(username, {
@@ -68,9 +70,56 @@ module.exports = {
             ]
         })
 
+        //send starter messsaage
+
+        const mailEmbed = new DiscordJS.MessageEmbed({
+            type: "rich",
+            title: `${mailUsername}`,
+            description: `4Mail`,
+            color: 0x00FFFF,
+            fields: [
+                {
+                name: `Mail:`,
+                value: `${mailUsername}`
+                },
+                {
+                name: `Password:`,
+                value: `${password}`
+                },
+                {
+                name: `Token:`,
+                value: `${token}`
+                },
+                {
+                name: `Id:`,
+                value: `${id}`
+                }
+            ]
+        })
+
+        const buttons = new DiscordJS.MessageActionRow()
+            .addComponents(
+                new DiscordJS.MessageButton()
+                    .setCustomId('refresh')
+                    .setEmoji('🔄')
+                    .setLabel('Refresh Mail')
+                    .setStyle(DiscordJS.Constants.MessageButtonStyles.SUCCESS)
+            )
+            .addComponents(
+                new DiscordJS.MessageButton()
+                    .setCustomId('delete')
+                    .setLabel('Delete Mail Account')
+                    .setStyle(DiscordJS.Constants.MessageButtonStyles.DANGER)
+            )
+
+        await newChannel.send({
+            content: `${interaction.user} Created new mail`,
+            embeds: [mailEmbed],
+            components: [buttons]
+        })
 
         await interaction.editReply({
-            content: `Created mail ${newChannel}`
+            content: `${interaction.user} => ${newChannel}`
         })
     },
 }
