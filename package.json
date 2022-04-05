@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/4lve/4Mail#readme",
   "dependencies": {
+    "@cemalgnlts/mailjs": "^1.0.1",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
     "wokcommands": "^1.5.3"
