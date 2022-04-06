@@ -18,6 +18,7 @@
   "homepage": "https://github.com/4lve/4Mail#readme",
   "dependencies": {
     "@cemalgnlts/mailjs": "^1.0.1",
+    "@faker-js/faker": "^6.1.2",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
     "mailparser": "^3.4.0",

@@ -2,6 +2,7 @@ const DiscordJS = require('discord.js');
 const mailjs = new (require("@cemalgnlts/mailjs"))();
 const uuid = require('uuid');
 const mailHelper = require('../helper.js');
+const { faker } = require('@faker-js/faker');
 /**
   * 
   * @param {DiscordJS.Client} client
@@ -30,7 +31,7 @@ module.exports = {
     ],
     
     callback: async ({ interaction, args }) => {
-        const username = args[0] || uuid.v4().replace(/-/g, '');
+        const username = args[0] || faker.name.findName().replace(/ /g, '.');
         const password = args[1] || uuid.v4();
         const mailUsername = `${username}@${global.endMail}`
 

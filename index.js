@@ -9,17 +9,23 @@ global.endMail = JSON.parse(fs.readFileSync(path.join(__dirname, './mail.json'),
 
 global.defButtons = new DiscordJS.MessageActionRow()
   .addComponents(
-      new DiscordJS.MessageButton()
-          .setCustomId('refresh')
-          .setEmoji('🔄')
-          .setLabel('Refresh Mail')
-          .setStyle(DiscordJS.Constants.MessageButtonStyles.SUCCESS)
+    new DiscordJS.MessageButton()
+      .setCustomId('refresh')
+      .setEmoji('🔄')
+      .setLabel('Refresh Mail')
+      .setStyle(DiscordJS.Constants.MessageButtonStyles.SUCCESS)
   )
   .addComponents(
-      new DiscordJS.MessageButton()
-          .setCustomId('delete')
-          .setLabel('Delete Mail Account')
-          .setStyle(DiscordJS.Constants.MessageButtonStyles.DANGER)
+    new DiscordJS.MessageButton()
+      .setCustomId('switch')
+      .setLabel('Switch Mail')
+      .setStyle(DiscordJS.Constants.MessageButtonStyles.DANGER)
+  )
+  .addComponents(
+    new DiscordJS.MessageButton()
+      .setCustomId('delete')
+      .setLabel('Delete Mail Account')
+      .setStyle(DiscordJS.Constants.MessageButtonStyles.DANGER)
   )
 
 const { Intents } = DiscordJS
