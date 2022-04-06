@@ -1,7 +1,7 @@
 {
   "name": "4mail",
   "version": "1.0.0",
-  "description": "Discord mail handeler",
+  "description": "Discord mail handler",
   "main": "index.js",
   "scripts": {
     "start": "echo Starting Bot && nodemon index.js"
