@@ -5,25 +5,34 @@ const mailjs = new (require("@cemalgnlts/mailjs"))();
   * @param {DiscordJS.Client} client
 */
 
-module.exports = (client, instance) => {
+const deleteMsgButton = new DiscordJS.MessageActionRow()
+  .addComponents(
+      new DiscordJS.MessageButton()
+          .setCustomId('msgdelete')
+          .setEmoji('🗑️')
+          .setLabel('Delete Message')
+          .setStyle(DiscordJS.Constants.MessageButtonStyles.DANGER)
+  )
+
+module.exports = (client) => {
     client.on('interactionCreate', async (interaction) => {
       if(interaction.type != 'MESSAGE_COMPONENT') return
       const customId = interaction.customId
 
-      const token = (interaction.message.embeds[0].fields[2].value)
-      const mailId = (interaction.message.embeds[0].fields[3].value)
+
 
       if(customId == 'delete') {
-        mailjs.token = token
-        mailjs.deleteMe()
         await interaction.channel.delete()
       }else if(customId == 'refresh') {
+        await interaction.deferReply()
+        const token = (interaction.message.embeds[0].fields[2].value)
+        const mailId = (interaction.message.embeds[0].fields[3].value)
         mailjs.token = token
         const mails = await mailjs.getMessages()
         
-        if(!mails.data[0]) return interaction.reply({
+        if(!mails.data[0]) return interaction.editReply({
           content: 'No mails found.',
-          ephemeral: true
+          components: [deleteMsgButton]
         })
 
         const selectedMail = mails.data[0]
@@ -45,20 +54,23 @@ module.exports = (client, instance) => {
               {
               name: `Intro:`,
               value: `${selectedMail.intro}`
-              },
-              {
-              name: `Id:`,
-              value: `${selectedMail.id}`
-                }
-            ]
+              }
+          ],
+          timestamp: new Date(),
+          footer: {
+            text: selectedMail.id,
+          },
         })
 
-        await interaction.reply({
+        await interaction.editReply({
           embeds: [mailEmbed],
+          components: [deleteMsgButton]
         })
-        mailjs.deleteMessage(selectedMail.id)
-        .then(console.log)
+        //mailjs.deleteMessage(selectedMail.id)
+      } else if(customId == 'msgdelete') {
+        interaction.message.delete()
       }
+
     })
 }
 

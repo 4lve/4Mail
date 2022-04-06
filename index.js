@@ -7,6 +7,21 @@ const fs = require('fs')
 
 global.endMail = JSON.parse(fs.readFileSync(path.join(__dirname, './mail.json'), 'utf8')).default
 
+global.defButtons = new DiscordJS.MessageActionRow()
+  .addComponents(
+      new DiscordJS.MessageButton()
+          .setCustomId('refresh')
+          .setEmoji('🔄')
+          .setLabel('Refresh Mail')
+          .setStyle(DiscordJS.Constants.MessageButtonStyles.SUCCESS)
+  )
+  .addComponents(
+      new DiscordJS.MessageButton()
+          .setCustomId('delete')
+          .setLabel('Delete Mail Account')
+          .setStyle(DiscordJS.Constants.MessageButtonStyles.DANGER)
+  )
+
 const { Intents } = DiscordJS
 
 const client = new DiscordJS.Client({
